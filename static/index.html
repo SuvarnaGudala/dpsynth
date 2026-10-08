@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DPSynth Studio – Differential Privacy Synthetic Data Engine</title>
+  <meta name="description" content="Generate mathematically guaranteed differential-privacy synthetic datasets. Preserve deep statistical correlations without exposing real customer or patient records.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="glow-orb orb-1" aria-hidden="true"></div>
+  <div class="glow-orb orb-2" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="top-nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-symbol">
+          <div class="shield-inner">ε</div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">DPSynth<span class="accent-dot">.</span></span>
+          <span class="brand-sub">Privacy Studio</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#studio" class="active"><span class="nav-icon">⚡</span> Studio</a>
+        <a href="#history-section"><span class="nav-icon">📜</span> History</a>
+        <a href="#pricing"><span class="nav-icon">💎</span> Plans &amp; Pricing</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="userPlanBadge" class="plan-pill community" title="Active Plan">
+          <span class="pulse-dot"></span>
+          <span id="badgePlanName">Free Plan</span>
+        </div>
+        <button id="authBtn" class="btn btn-secondary btn-sm" title="Enter API Key or License Email">
+          <span class="btn-icon">🔑</span> License Key
+        </button>
+        <button id="upgradeHeaderBtn" class="btn btn-primary btn-sm glow-btn">
+          Upgrade to Pro
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-copy">
+        <div class="hero-badge">
+          <span class="badge-icon">🛡️</span> Pure &amp; Gaussian Differential Privacy Engine
+        </div>
+        <h1>Mathematically Proven Privacy.<br><span class="gradient-text">Zero Compromise on Utility.</span></h1>
+        <p class="hero-desc">
+          Transform sensitive customer, financial, and healthcare datasets into lookalike synthetic data that is mathematically immune to re-identification attacks under rigorous &epsilon;-DP guarantees.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-val" id="statRowsGen">1.2M+</span>
+            <span class="stat-lbl">Private Rows Generated</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat-item">
+            <span class="stat-val" id="statAvgFidelity">96.8%</span>
+            <span class="stat-lbl">Mean Utility Fidelity</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat-item">
+            <span class="stat-val">100%</span>
+            <span class="stat-lbl">Privacy Guarantee (ε-DP)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Interactive Mechanism Visualizer -->
+      <div class="hero-card" aria-label="Privacy Mechanism Diagram">
+        <div class="card-glass-header">
+          <span class="status-indicator live"></span>
+          <span>DP Mechanism Visualizer</span>
+          <span class="tech-tag">Laplace &bull; Sensitivity 1</span>
+        </div>
+        <div class="viz-comparison">
+          <div class="viz-box orig">
+            <div class="viz-box-title">
+              <span>Original Records</span>
+              <span class="badge-mini danger">PII Risk</span>
+            </div>
+            <div class="viz-rows">
+              <div class="vrow"><span>Asha, 34</span><span class="tag-loc">Pune</span><span class="tag-amt">₹84,000</span></div>
+              <div class="vrow"><span>Ravi, 41</span><span class="tag-loc">Delhi</span><span class="tag-amt">₹1,12,000</span></div>
+              <div class="vrow"><span>Meera, 29</span><span class="tag-loc">Mumbai</span><span class="tag-amt">₹67,500</span></div>
+            </div>
+          </div>
+
+          <div class="viz-transfer">
+            <div class="noise-pill">
+              <span class="noise-wave">~~~</span>
+              <span>+ Laplace(&sigma;)</span>
+            </div>
+            <div class="arrow-svg">&rarr;</div>
+          </div>
+
+          <div class="viz-box synth">
+            <div class="viz-box-title">
+              <span>Synthetic Output</span>
+              <span class="badge-mini success">ε-DP Safe</span>
+            </div>
+            <div class="viz-rows">
+              <div class="vrow"><span>— , 33.8</span><span class="tag-loc">Pune</span><span class="tag-amt">₹83,100</span></div>
+              <div class="vrow"><span>— , 40.6</span><span class="tag-loc">Delhi</span><span class="tag-amt">₹1,14,200</span></div>
+              <div class="vrow"><span>— , 29.4</span><span class="tag-loc">Mumbai</span><span class="tag-amt">₹66,800</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="viz-footer">
+          <span>&check; Retains multivariate joint correlations</span>
+          <span>&check; Cryptographic SHA-256 certificate</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio Workbench -->
+    <section id="studio" class="studio-section">
+      <div class="section-heading">
+        <div class="step-counter">STEP-BY-STEP WORKSPACE</div>
+        <h2>Data Synthesis Studio</h2>
+        <p class="section-sub">Upload tabular data, tune your privacy parameters, and generate synthetic distributions with high statistical fidelity.</p>
+      </div>
+
+      <div class="workbench-grid">
+        <!-- Step 1: Data Ingestion -->
+        <div class="panel step-panel" id="panelStep1">
+          <div class="panel-header">
+            <div class="step-num">1</div>
+            <div>
+              <h3>Dataset Ingestion</h3>
+              <p class="panel-sub">Upload CSV spreadsheet or test with pre-built domain templates</p>
+            </div>
+          </div>
+
+          <div class="sample-pills-wrap">
+            <span class="pills-label">Pre-loaded Samples:</span>
+            <div class="sample-pills">
+              <button class="pill-btn active" data-sample="health">🏥 Healthcare Clinical</button>
+              <button class="pill-btn" data-sample="finance">💳 Financial Credit</button>
+              <button class="pill-btn" data-sample="ecom">🛒 E-Commerce Shoppers</button>
+              <button class="pill-btn" data-sample="census">👥 Census Demographics</button>
+            </div>
+          </div>
+
+          <!-- Drag and Drop Zone -->
+          <div id="dropZone" class="drop-zone" tabindex="0">
+            <input type="file" id="fileInput" accept=".csv,text/csv" hidden>
+            <div class="drop-icon">📂</div>
+            <div class="drop-title">Drag &amp; drop CSV spreadsheet here</div>
+            <div class="drop-meta">Supports CSV up to 1M rows &bull; First row must contain header names</div>
+            <button type="button" class="btn btn-secondary btn-sm drop-browse-btn">Browse Local File</button>
+          </div>
+
+          <!-- Dataset Meta Bar -->
+          <div id="dataMetaBar" class="data-meta-bar">
+            <div class="meta-item"><span class="meta-label">Rows</span><span class="meta-val" id="metaRowCount">0</span></div>
+            <div class="meta-item"><span class="meta-label">Columns</span><span class="meta-val" id="metaColCount">0</span></div>
+            <div class="meta-item"><span class="meta-label">Status</span><span class="meta-val text-success" id="metaStatus">Ready</span></div>
+            <div class="meta-item"><span class="meta-label">Plan Capacity</span><span class="meta-val text-accent" id="metaCapacity">1,000 rows</span></div>
+          </div>
+
+          <!-- Raw CSV toggle / textarea -->
+          <div class="csv-editor-wrap">
+            <div class="csv-editor-header">
+              <span>CSV Data Editor</span>
+              <button class="btn-link" id="toggleRawCsv">Toggle Raw View</button>
+            </div>
+            <textarea id="csvEditor" spellcheck="false" placeholder="Paste CSV text here (comma-separated)..."></textarea>
+          </div>
+        </div>
+
+        <!-- Step 2: Privacy Parameters -->
+        <div class="panel step-panel" id="panelStep2">
+          <div class="panel-header">
+            <div class="step-num">2</div>
+            <div>
+              <h3>Privacy Engine &amp; Budget</h3>
+              <p class="panel-sub">Configure mathematical epsilon budget and differential privacy mechanism</p>
+            </div>
+          </div>
+
+          <!-- Epsilon Dial & Slider -->
+          <div class="privacy-dial-box">
+            <div class="dial-header">
+              <span class="dial-tag">Privacy Budget (&epsilon;)</span>
+              <span id="privacyRiskBadge" class="risk-badge balanced">Balanced Privacy</span>
+            </div>
+
+            <div class="slider-container">
+              <input type="range" id="epsSlider" min="0" max="100" value="55" aria-label="Privacy budget slider">
+              <div class="slider-scale">
+                <span>🔒 Strict (0.05)</span>
+                <span>⚖️ Balanced (1.0)</span>
+                <span>🎯 High Utility (10.0)</span>
+              </div>
+            </div>
+
+            <div class="dial-metric-row">
+              <div class="metric-block">
+                <span class="metric-label">Selected Budget (&epsilon;)</span>
+                <span class="metric-val" id="epsDisplayVal">1.00</span>
+              </div>
+              <div class="metric-block desc-block">
+                <span class="metric-label">Privacy Guarantee</span>
+                <span class="metric-desc" id="epsExplanation">Optimal balance between mathematical privacy and statistical fidelity.</span>
+              </div>
+            </div>
+
+            <!-- Preset Buttons -->
+            <div class="preset-buttons">
+              <button type="button" class="preset-btn" data-eps="0.10">HIPAA Grade (0.10)</button>
+              <button type="button" class="preset-btn" data-eps="0.50">Strict (0.50)</button>
+              <button type="button" class="preset-btn active" data-eps="1.00">Standard (1.00)</button>
+              <button type="button" class="preset-btn" data-eps="4.00">High Utility (4.00)</button>
+            </div>
+          </div>
+
+          <!-- Mechanism Selector & Row Count -->
+          <div class="params-row-grid">
+            <div class="form-group">
+              <label for="mechSelect">Privacy Mechanism</label>
+              <select id="mechSelect" class="form-control">
+                <option value="laplace" selected>Laplace Mechanism (Pure ε-DP)</option>
+                <option value="gaussian">Gaussian Mechanism ((ε, δ)-DP) [Enterprise]</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="sampleRowsInput">Synthetic Output Rows</label>
+              <input type="number" id="sampleRowsInput" class="form-control" value="250" min="10" max="5000000">
+            </div>
+          </div>
+
+          <!-- Delta input for Gaussian -->
+          <div id="gaussianDeltaBox" class="form-group delta-box" hidden>
+            <label for="deltaInput">Delta (&delta;) Relaxation Bound</label>
+            <input type="number" id="deltaInput" class="form-control" value="0.00001" step="0.00001" min="0.000000001" max="0.01">
+            <small class="field-hint">Probability of privacy breach exceeding &epsilon; (typically 1e-5).</small>
+          </div>
+
+          <!-- Active License Key / Plan Bar -->
+          <div class="auth-context-bar">
+            <div class="auth-info">
+              <span class="auth-label">Active Plan Tier:</span>
+              <span id="currentPlanDisplay" class="auth-tier">Free Starter</span>
+              <span id="planLimitsDisplay" class="auth-limit">(Max 1,000 in / 2,500 out / Min ε 0.5)</span>
+            </div>
+            <button type="button" id="changePlanBtn" class="btn-link">Change or Upgrade</button>
+          </div>
+
+          <!-- Action Synthesize Button -->
+          <div class="generate-action-box">
+            <button id="generateBtn" class="btn btn-primary btn-lg btn-block glow-btn">
+              <span class="btn-icon">⚡</span> Synthesize Private Dataset
+            </button>
+            <div id="actionStatus" class="action-status" role="status"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Synthesis Results & Dashboard (Hidden until generation) -->
+      <div id="resultsDashboard" class="results-dashboard" hidden>
+        <div class="results-banner">
+          <div class="results-banner-left">
+            <span class="success-icon">&check;</span>
+            <div>
+              <h3>Synthetic Dataset Successfully Generated</h3>
+              <p id="resSubtitle" class="res-sub">Generated under pure differential privacy with verified Total Variation Distance.</p>
+            </div>
+          </div>
+          <div class="results-actions">
+            <button id="downloadCsvBtn" class="btn btn-primary btn-sm">
+              <span class="btn-icon">📥</span> Download Full CSV
+            </button>
+            <button id="copyJsonBtn" class="btn btn-secondary btn-sm">
+              <span class="btn-icon">📋</span> Copy JSON
+            </button>
+            <button id="viewCertBtn" class="btn btn-secondary btn-sm">
+              <span class="btn-icon">📜</span> View Audit Certificate
+            </button>
+          </div>
+        </div>
+
+        <!-- Metrics Overview Grid -->
+        <div class="metrics-grid">
+          <div class="metric-card ring-card">
+            <div class="radial-ring-wrap">
+              <div class="radial-ring" id="fidelityRing" style="--p: 85;">
+                <span class="ring-val" id="fidelityVal">85%</span>
+              </div>
+            </div>
+            <div class="ring-info">
+              <h4>Statistical Fidelity</h4>
+              <p>Preservation of empirical data distributions</p>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-card-top">
+              <span class="mcard-title">Total Variation Distance (TVD)</span>
+              <span class="mcard-badge info">Utility Loss</span>
+            </div>
+            <div class="mcard-val" id="tvdVal">0.1500</div>
+            <div class="mcard-bar-wrap">
+              <div class="mcard-bar-fill" id="tvdBar" style="width: 15%;"></div>
+            </div>
+            <div class="mcard-footer" id="tvdFooter">Measured utility loss: 15.0%</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-card-top">
+              <span class="mcard-title">Privacy Budget (&epsilon;)</span>
+              <span class="mcard-badge success">Certified Safe</span>
+            </div>
+            <div class="mcard-val" id="resEpsVal">1.00</div>
+            <div class="mcard-footer" id="resMechVal">Mechanism: Laplace (Joint-histogram)</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-card-top">
+              <span class="mcard-title">Cryptographic Fingerprint</span>
+              <span class="mcard-badge accent">SHA-256</span>
+            </div>
+            <div class="audit-hash-badge" id="auditHashVal" title="Click to copy SHA-256 audit fingerprint">
+              000000000000...
+            </div>
+            <div class="mcard-footer">Tamper-evident verification digest</div>
+          </div>
+        </div>
+
+        <!-- Column-wise Fidelity Heatmap & Distributions (Pro & Enterprise) -->
+        <div id="columnMetricsPanel" class="column-metrics-panel">
+          <div class="panel-inner-header">
+            <h4>Column-Level Fidelity &amp; Distribution Overlap</h4>
+            <span class="badge-mini pro-badge">Pro &bull; Deep Fidelity Report</span>
+          </div>
+          <div id="columnMetricsGrid" class="col-metrics-grid">
+            <!-- Dynamically populated per column -->
+          </div>
+        </div>
+
+        <!-- Comparative Tables -->
+        <div class="data-preview-tabs">
+          <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="tabSynthetic">Synthetic Data (Preview)</button>
+            <button class="tab-btn" data-tab="tabOriginal">Original Data (Reference)</button>
+          </div>
+
+          <div class="tab-content" id="tabSynthetic">
+            <div class="table-container" id="syntheticTableWrap"></div>
+          </div>
+
+          <div class="tab-content" id="tabOriginal" hidden>
+            <div class="table-container" id="originalTableWrap"></div>
+          </div>
+        </div>
+
+        <!-- Formal Audit Certificate Card (Enterprise & Pro) -->
+        <div id="auditCertCard" class="audit-cert-card" hidden>
+          <div class="cert-header">
+            <div class="cert-shield">🔒</div>
+            <div>
+              <h3>Differential Privacy Compliance Certificate</h3>
+              <div class="cert-subtitle">Issued under the DPSynth Differential Privacy Engine</div>
+            </div>
+          </div>
+          <div class="cert-body" id="certBodyText"></div>
+          <div class="cert-footer">
+            <span id="certTimestamp"></span>
+            <button class="btn btn-secondary btn-sm" id="copyCertBtn">Copy Certificate Text</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Job History Section -->
+    <section id="history-section" class="history-section">
+      <div class="section-heading">
+        <div class="step-counter">AUDIT TRAIL</div>
+        <h2>Recent Synthesis Jobs</h2>
+        <p class="section-sub">Immutable log of privacy budget consumption, dataset jobs, and cryptographic audit digests.</p>
+      </div>
+
+      <div class="history-table-card">
+        <div class="table-responsive">
+          <table class="history-table" id="historyTable">
+            <thead>
+              <tr>
+                <th>Job UID</th>
+                <th>Timestamp</th>
+                <th>Plan Tier</th>
+                <th>Budget (ε)</th>
+                <th>In / Out Rows</th>
+                <th>Fidelity Score</th>
+                <th>Audit Hash</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              <tr><td colspan="8" class="text-center py-4 text-muted">Loading job history...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plans & Pricing Section -->
+    <section id="pricing" class="pricing-section">
+      <div class="section-heading text-center">
+        <div class="step-counter">UPGRADES &amp; SUBSCRIPTIONS</div>
+        <h2>Transparent Pricing for High-Security Teams</h2>
+        <p class="section-sub">Standard prices in Indian Rupees (₹). 18% GST (SAC code 998313) included on Tax Invoices with B2B input tax credit.</p>
+
+        <!-- Billing Cycle Toggle -->
+        <div class="billing-toggle-wrap">
+          <span class="toggle-lbl" id="lblMonthly">Monthly</span>
+          <button type="button" class="billing-toggle-btn" id="billingCycleToggle" aria-label="Toggle annual or monthly billing">
+            <span class="toggle-knob"></span>
+          </button>
+          <span class="toggle-lbl active" id="lblAnnual">Annual <span class="discount-pill">Save 20%</span></span>
+        </div>
+      </div>
+
+      <div class="pricing-cards-grid" id="pricingCardsBox">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Interactive Payment Checkout Modal -->
+  <dialog id="checkoutModal" class="checkout-modal" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModalBtn" aria-label="Close dialog">&times;</button>
+      
+      <div class="modal-header">
+        <div class="modal-badge">SECURE 256-BIT CHECKOUT</div>
+        <h3 id="modalTitle">Upgrade to <span id="checkoutPlanName">Pro Researcher</span></h3>
+        <p class="modal-sub">Accepts UPI, NetBanking, Credit/Debit Cards, and Sandbox instant testing.</p>
+      </div>
+
+      <div class="modal-body-grid">
+        <!-- Order Summary & Taxes -->
+        <div class="order-summary-panel">
+          <h4>Order Summary</h4>
+          <div class="order-line">
+            <span id="linePlanLabel">DPSynth Pro Subscription</span>
+            <span id="lineBaseAmount">₹499.00</span>
+          </div>
+          <div class="order-line text-success" id="lineDiscountRow" hidden>
+            <span id="lineDiscountLabel">Coupon Discount</span>
+            <span id="lineDiscountAmount">-₹0.00</span>
+          </div>
+          <div class="order-line text-muted">
+            <span>Central GST (CGST @ 9%)</span>
+            <span id="lineCgstAmount">₹44.91</span>
+          </div>
+          <div class="order-line text-muted">
+            <span>State GST (SGST @ 9%)</span>
+            <span id="lineSgstAmount">₹44.91</span>
+          </div>
+          <div class="order-divider"></div>
+          <div class="order-total-line">
+            <span>Total Payable (INR)</span>
+            <span class="total-inr" id="lineTotalAmount">₹588.82</span>
+          </div>
+
+          <!-- Coupon Input -->
+          <div class="coupon-box">
+            <div class="coupon-input-group">
+              <input type="text" id="couponInput" placeholder="Promo code (e.g. WELCOME20)" uppercase>
+              <button type="button" id="applyCouponBtn" class="btn btn-secondary btn-sm">Apply</button>
+            </div>
+            <div id="couponMessage" class="coupon-msg"></div>
+          </div>
+
+          <div class="compliance-note">
+            <span>📋 SAC Code 998313 &bull; GST Tax Invoice will be issued instantly</span>
+          </div>
+        </div>
+
+        <!-- Customer Form & Payment Method -->
+        <div class="checkout-form-panel">
+          <h4>Customer &amp; Billing Details</h4>
+          <div class="form-group">
+            <label for="custEmail">Billing Email Address *</label>
+            <input type="email" id="custEmail" class="form-control" placeholder="you@company.com" required>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="custName">Full Name</label>
+              <input type="text" id="custName" class="form-control" placeholder="Asha Sharma">
+            </div>
+            <div class="form-group">
+              <label for="custCompany">Company / Org</label>
+              <input type="text" id="custCompany" class="form-control" placeholder="Acme Labs">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="custGstin">GSTIN (Optional for B2B input tax credit)</label>
+            <input type="text" id="custGstin" class="form-control" placeholder="36AABCD1234E1Z5">
+          </div>
+
+          <!-- Payment Method Choice -->
+          <h4 class="mt-4">Payment Method</h4>
+          <div class="payment-method-selector">
+            <label class="method-option active">
+              <input type="radio" name="payMethod" value="sandbox" checked>
+              <div class="method-content">
+                <span class="method-name">⚡ 1-Click Instant Sandbox Pay</span>
+                <span class="method-desc">Zero friction test payment &bull; Activates Pro plan &amp; API key instantly</span>
+              </div>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="payMethod" value="razorpay">
+              <div class="method-content">
+                <span class="method-name">💳 Razorpay (Live UPI, Cards, NetBanking)</span>
+                <span class="method-desc">Standard Indian &amp; international payment gateway</span>
+              </div>
+            </label>
+          </div>
+
+          <button type="button" id="proceedPaymentBtn" class="btn btn-primary btn-lg btn-block mt-4 glow-btn">
+            Pay &amp; Activate Plan
+          </button>
+          <div id="payStatusMsg" class="pay-status-msg"></div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Payment Success Modal -->
+  <dialog id="successModal" class="checkout-modal" aria-labelledby="successTitle">
+    <div class="modal-card text-center success-card">
+      <div class="success-ring-icon">&check;</div>
+      <h3 id="successTitle">Payment Verified &amp; Plan Activated!</h3>
+      <p class="modal-sub" id="successSubtitle">Your account has been upgraded with expanded synthesis capacity.</p>
+
+      <div class="success-credentials-box">
+        <div class="cred-row">
+          <span class="cred-label">Activated Tier:</span>
+          <span class="cred-val text-accent" id="successPlanName">Pro Researcher</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-label">Invoice Number:</span>
+          <span class="cred-val" id="successInvoiceNo">INV-2026-00000</span>
+        </div>
+        <div class="cred-row key-cred-row">
+          <span class="cred-label">Your Personal API Key:</span>
+          <div class="key-box-inner">
+            <input type="text" id="successApiKeyInput" readonly value="">
+            <button class="btn btn-secondary btn-sm" id="copySuccessApiKeyBtn">Copy Key</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <a id="downloadInvoiceLink" href="#" target="_blank" class="btn btn-secondary">
+          <span class="btn-icon">🧾</span> View Tax Invoice (HTML)
+        </a>
+        <button id="finishSuccessBtn" class="btn btn-primary glow-btn">
+          Start Synthesizing Now &rarr;
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- License Key / Email Login Modal -->
+  <dialog id="licenseModal" class="checkout-modal" aria-labelledby="licenseTitle">
+    <div class="modal-card">
+      <button class="modal-close" id="closeLicenseBtn" aria-label="Close dialog">&times;</button>
+      <div class="modal-header">
+        <h3 id="licenseTitle">Activate Existing License</h3>
+        <p class="modal-sub">Enter your email or existing API key to unlock your subscribed plan.</p>
+      </div>
+      <div class="p-4">
+        <div class="form-group">
+          <label for="lookupInput">Account Email or API Key (dps_...)</label>
+          <input type="text" id="lookupInput" class="form-control" placeholder="e.g. user@domain.com or dps_1e1cf2...">
+        </div>
+        <button id="lookupBtn" class="btn btn-primary btn-block mt-3">Activate on this Browser</button>
+        <div id="lookupMsg" class="mt-2 text-center"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Global Toast -->
+  <div id="toast" role="alert" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">DPSynth Differential Privacy Studio</span>
+        <p>Mathematical privacy preserving systems &bull; Compliant with GDPR, HIPAA, and DPDP Act 2023.</p>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 DPSynth Privacy Technologies Ltd.</span>
+        <span>SAC Code: 998313 &bull; GSTIN: 36AABCD9876E1Z2</span>
+        <a href="#pricing">Terms &amp; GST Invoicing</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
